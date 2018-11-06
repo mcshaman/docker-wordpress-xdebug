@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  wordpress-xdebug:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: wordpress-xdebug
+    container_name: wordpress-xdebug
+    ports:
+      - '8080:80'
+    volumes:
+        - './src:/var/www/html'
