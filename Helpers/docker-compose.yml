@@ -1,13 +1,20 @@
-version: '3'
+version: '3.7'
 
 services:
-  wordpress-xdebug:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    image: wordpress-xdebug
-    container_name: wordpress-xdebug
+  wordpress:
+    image: mcshaman/wordpress-xdebug
+    container_name: wordpress
     ports:
       - '8080:80'
     volumes:
-        - './src:/var/www/html'
+        - ${PWD}/customtheme:/var/www/html/wp-content/themes/customtheme
+        - ${PWD}/languages:/var/www/html/wp-content/languages
+        - ${PWD}/plugins:/var/www/html/wp-content/plugins
+        - ${PWD}/uploads:/var/www/html/wp-content/uploads
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: always
